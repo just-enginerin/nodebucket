@@ -1,11 +1,47 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <h1>Home Component Works! <span class="material-icons">thumb_up</span></h1>
+<!--
+  Title: home.component.html
+  Author: Erin Brady
+  Date: 08/16/2023
+  Description: Home HTML
+-->
+
+<div class="container-fluid pt-2">
+
+  <h1 class="text-center">Welcome to HufflePuff's NodeBucket Application</h1>
+
+  <div class="row mt-5">
+    <!-- Task Management -->
+    <div class="col-sm-4">
+      <figure>
+        <a routerLink="/task-management/my-tasks">
+          <img class="img-fluid" src="https://images.unsplash.com/photo-1585435465945-bef5a93f8849?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Person writing their bucket list." />
+        </a>
+        <h1>Tasks</h1>
+        <p>NodeBucket is a simple to-do list application that allows you to manage and keep track of your tasks.</p>
+      </figure>
     </div>
+
+    <!-- About Us -->
+    <div class="col-sm-4">
+      <figure>
+        <a routerLink="#">
+          <img class="img-fluid" src="https://images.unsplash.com/photo-1563016115-85abfc230672?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Framed eyeglasses on top of a book." />
+        </a>
+        <h1>About Us</h1>
+        <p>Learn more about our company and why NodeBucket is right for you.</p>
+      </figure>
+    </div>
+
+    <!-- Contact Us -->
+    <div class="col-sm-4">
+      <figure>
+        <a routerLink="#">
+          <img class="img-fluid" src="https://images.unsplash.com/photo-1662916759077-a381dc05f604?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Scrabble photo." />
+        </a>
+        <h1>Contact Us</h1>
+        <p>Do you have questions? We have answers. Contact us today.</p>
+      </figure>
+    </div>
+
   </div>
-
-  <a routerLink="/security">Test Security Module</a>
 </div>
-
-
