@@ -1,0 +1,17 @@
+/*
+  Title: base-layout.component.css
+  Author: Erin Brady
+  Date: 08/17/2023
+  Description: Custom Base Layout styles
+*/
+
+main {
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+app-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
