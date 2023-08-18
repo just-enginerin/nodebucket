@@ -5,6 +5,11 @@
   Description: Custom Base Layout styles
 */
 
+main {
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
 app-footer {
   position: absolute;
   bottom: 0;
