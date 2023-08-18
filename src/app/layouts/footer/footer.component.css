@@ -1,0 +1,27 @@
+/*
+  Title: footer.component.css
+  Author: Erin Brady
+  Date: 08/17/2023
+  Description: Custom footer styles
+*/
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-logos {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100px;
+}
+
+.footer-link {
+  color: yellow;
+  transition-duration: 350ms;
+}
+
+.footer-link:hover {
+  color: white;
+  transition-duration: 350ms;
+}

@@ -1,0 +1,16 @@
+/*
+  Title: nav.component.css
+  Author: Erin Brady
+  Date: 08/17/2023
+  Description: Navbar custom styles
+*/
+
+.nav-link {
+  color: yellow;
+  transition: 500ms;
+}
+
+.nav-link:hover {
+  color: white;
+  transition-duration: 500ms;
+}
