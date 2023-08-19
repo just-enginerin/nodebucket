@@ -1,0 +1,77 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "HufflePuff's NodeBucket - OpenAPI Documentation",
+    "description": "This is a Task Management Server documented according to the OpenAPI Specification.\n\nSome useful links:\n- [NodeBucket repository](https://github.com/just-enginerin/nodebucket)"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Employees",
+      "description": "All operations available regarding employees."
+    }
+  ],
+  "paths": {
+    "/employees/{empId}": {
+      "get": {
+        "tags": ["Employees"],
+        "summary": "findEmployeeById",
+        "description": "Get an employee by their ID.",
+        "parameters": [
+          {
+            "name": "empId",
+            "in": "path",
+            "required": true,
+            "description": "A numerical value between 1007 - 1012",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "empId": {
+                      "type": "number",
+                      "example": 1007
+                    },
+                    "firstName": {
+                      "type": "string",
+                      "example": "Johann"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "Bach"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"]
+}
