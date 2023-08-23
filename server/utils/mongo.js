@@ -8,9 +8,10 @@
 'use strict'
 
 const { MongoClient } = require('mongodb')
+const config = require('./config')
 
 // MongoDB URL with user credentials
-const MONGO_URL = 'mongodb+srv://nodebucket_user:s3cret@bellevueuniversity.nhzwaya.mongodb.net/nodebucket?retryWrites=true&w=majority'
+const MONGO_URL = config.DB_URL //'mongodb+srv://nodebucket_user:s3cret@bellevueuniversity.nhzwaya.mongodb.net/nodebucket?retryWrites=true&w=majority'
 
 const mongo = async(operations, next) => {
   try {
@@ -23,7 +24,7 @@ const mongo = async(operations, next) => {
     })
 
     // Select the database.
-    const db = client.db('nodebucket')
+    const db = client.db(config.DB_NAME)
     console.log('Successfully connected to MongoDB Atlas! ', db)
 
     // Execute the operatons.
