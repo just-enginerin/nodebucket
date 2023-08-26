@@ -69,6 +69,145 @@
           }
         }
       }
+    },
+    "/employees/{empId}/tasks": {
+      "get": {
+        "tags": ["Employees"],
+        "summary": "findAllTasks",
+        "description": "Get all tasks created for a designated employee.",
+        "parameters": [
+          {
+            "name": "empId",
+            "in": "path",
+            "required": true,
+            "description": "A numerical value between 1007 - 1012",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "empId": {
+                      "type": "number",
+                      "example": 1007
+                    },
+                    "todo": {
+                      "type": "array",
+                      "example": []
+                    },
+                    "done": {
+                      "type": "array",
+                      "example": []
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Employees"],
+        "summary": "createTask",
+        "description": "Create a new task for a designated employee.",
+        "parameters": [
+          {
+            "name": "empId",
+            "in": "path",
+            "required": true,
+            "description": "A numerical value between 1007 - 1012",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Information about the new task.",
+          "required": true,
+          "content": {
+          "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "task": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "required": true,
+                        "description": "A brief title describing the new task.",
+                        "example": "Test Task"
+                      },
+                      "category": {
+                        "type": "object",
+                        "required": true,
+                        "description": "The designated category of the new task.",
+                        "properties": {
+                          "categoryName": {
+                            "type": "string",
+                            "required": true,
+                            "description": "The name of the new task's designated category.",
+                            "example": "meetings"
+                          },
+                          "backgroundColor": {
+                            "type": "string",
+                            "required": true,
+                            "description": "The label color associated with the new task's designated category.",
+                            "example": "FFFFFF"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "64e93dfb9f0e3c3b7fa5bc0d"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "schemes": ["http"],
