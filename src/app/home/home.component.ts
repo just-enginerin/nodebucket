@@ -2,7 +2,8 @@
  * Title: home.component.ts
  * Author: Professor Krasso
  * Date: 8/5/23
- */
+ * Description: Homepage component logic
+*/
 
 // imports statements
 import { Component } from '@angular/core';
@@ -12,6 +13,7 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent {
 
 }

@@ -2,6 +2,7 @@
  * Title: app.component.ts
  * Author: Professor Krasso
  * Date: 8/5/23
+ * Description: App component logic
  */
 
 // imports statements
