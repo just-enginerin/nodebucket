@@ -99,6 +99,31 @@ export class TasksComponent {
     })
   }
 
+  deleteTask(taskId: string) {
+    console.log('Task item: ', taskId)
+
+    if (!confirm('Are you sure you want to delete this task?')) {
+      return
+    }
+
+    this.taskService.deleteTask(this.empId, taskId).subscribe({
+      next: (res: any) => {
+        console.log('Task deleted with ID: ', taskId)
+
+        this.todo = this.todo.filter(t => t._id?.toString() !== taskId)
+        this.done = this.done.filter(t => t._id?.toString() !== taskId)
+
+        this.successMessage = 'Task completed successfully!'
+        this.hideAlert()
+      },
+      error: (err) => {
+        console.log('err: ', err)
+        this.errorMessage = err.message
+        this.hideAlert()
+      }
+    })
+  }
+
   // Automatically close errors after 3 seconds
   hideAlert() {
     setTimeout(() => {

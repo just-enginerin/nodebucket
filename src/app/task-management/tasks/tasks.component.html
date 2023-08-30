@@ -102,10 +102,10 @@
 
     <!-- To Do Column -->
     <div class="col-sm-5 col-md-4 col-lg-3">
+
       <h4 class="text-center"> To Do:</h4>
 
       <div class="p-3 border bg-light">
-
         <div class="container">
 
           <!-- If there are no tasks to do, display an informational message. -->
@@ -119,9 +119,9 @@
           <div class="mt-2" *ngFor="let item of todo">
 
             <div class="row border bg-white">
+
               <div class="col-sm-6">
                 <div class="card-body">
-
 
                   <button
                     *ngIf="item.category.categoryName != 'other'"
@@ -131,22 +131,36 @@
                     style="width: 25%"
                     class="btn"
                   >
-                </button>
+                  </button>
+
                   <div>
                     {{ item.text }}
                   </div>
-
                 </div>
               </div>
-            </div>
 
+              <!-- Web Delete Button -->
+              <div class="col-sm-6">
+                <div class="card-body float-end">
+                  <button class="btn" (click)="deleteTask(item._id ?? '')">
+                    <span class="material-icons">delete</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Mobile only Delete Button -->
+              <div class="col-12 d-sm-none d-md-none d-lg-none d-clnone d-grid gap-2 p-2">
+                <button class="btn btn-secondary" (click)="deleteTask(item._id ?? '')">Delete</button>
+              </div>
+
+            </div>
           </div>
 
-
         </div>
-
       </div>
+
     </div>
+
 
     <!-- Done Column -->
     <div class="col-sm-5 col-md-4 col-lg-3">
@@ -163,7 +177,9 @@
 
           <!-- Display all Done tasks for the current user. -->
           <div class="mt-2" *ngFor="let item of done">
+
             <div class="row border bg-white">
+
               <div class="col-sm-6">
                 <div class="card-body">
 
@@ -183,17 +199,25 @@
 
                 </div>
               </div>
+
+              <!-- Delete "Done" Item Button -->
+              <div class="col-sm-6">
+                <div class="card-body float-end">
+                  <button class="btn" (click)="deleteTask(item._id ?? '')">
+                    <span class="material-icons">delete</span>
+                  </button>
+                </div>
+              </div>
+
             </div>
 
           </div>
 
 
         </div>
-
       </div>
     </div>
 
   </div>
-
 
 </div>
