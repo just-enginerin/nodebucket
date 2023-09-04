@@ -9,3 +9,9 @@ h1 {
   text-align: center;
   padding: 10px 0;
 }
+
+.home {
+  background-color: #e9ece5;
+  padding: 50px;
+  min-height: 50vh;
+}

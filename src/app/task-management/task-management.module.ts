@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TaskManagementRoutingModule } from './task-management-routing.module';
 import { TaskManagementComponent } from './task-management.component';
 import { TasksComponent } from './tasks/tasks.component';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import { TasksComponent } from './tasks/tasks.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DragDropModule
   ]
 })
 
