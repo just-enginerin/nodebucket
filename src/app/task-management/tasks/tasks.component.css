@@ -1,0 +1,25 @@
+/**
+ * Title: tasks.component.css
+ * Author: Erin Brady
+ * Date: 08/16/2023
+ * Description: My Tasks component styles
+*/
+
+.tasks {
+  background-color: #e9ece5;
+  border: 30px solid rgba(33, 37, 41, 1);
+  padding: 70px 0 100px !important;
+}
+
+.task-column {
+  min-height: 250px;
+}
+
+.task-hover:hover {
+  cursor: pointer;
+}
+
+#btnAdd {
+  background-color: yellow;
+  color: black;
+}

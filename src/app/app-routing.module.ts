@@ -12,6 +12,8 @@ import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component
 import { HomeComponent } from './home/home.component';
 import { authGuard } from './shared/auth.guard';
 import { ContactComponent } from './contact/contact.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AboutComponent } from './about/about.component';
 
 // routes array with a path, component, and title for each route in the application (e.g. home, about, contact, etc.)
 const routes: Routes = [
@@ -22,17 +24,27 @@ const routes: Routes = [
       {
         path: '',
         component: HomeComponent,
-        title: 'Nodebucket: Home'
+        title: 'NodeBucket: Home'
       },
       {
         path: 'home',
         component: HomeComponent,
-        title: 'Nodebucket: Home'
+        title: 'NodeBucket: Home'
+      },
+      {
+        path: 'about',
+        component: AboutComponent,
+        title: 'NodeBucket: About'
       },
       {
         path: 'contact',
         component: ContactComponent,
         title: 'NodeBucket: Contact Us'
+      },
+      {
+        path: 'not-found',
+        component: NotFoundComponent,
+        title: 'NodeBucket: 404'
       },
       {
         path: 'task-management',
@@ -45,6 +57,11 @@ const routes: Routes = [
     // path for the security module (e.g. login, register, forgot password, etc.)
     path: 'security',
     loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
+  },
+  {
+    // Redirect to Not Found, if a user navigates to any of the paths not listed above.
+    path: '**',
+    redirectTo: 'not-found'
   }
 ];
 

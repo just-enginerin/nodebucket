@@ -11,6 +11,7 @@ import { TaskService } from '../task.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee } from './employee.interface';
 import { Item } from './item.interface';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-tasks',
@@ -110,6 +111,11 @@ export class TasksComponent {
       next: (res: any) => {
         console.log('Task deleted with ID: ', taskId)
 
+        // Initialize lists if they don't already exist within the record.
+        if (!this.todo) this.todo = []
+        if (!this.done) this.done = []
+
+        // Filter out the designated task ID.
         this.todo = this.todo.filter(t => t._id?.toString() !== taskId)
         this.done = this.done.filter(t => t._id?.toString() !== taskId)
 
@@ -124,6 +130,43 @@ export class TasksComponent {
     })
   }
 
+
+  updateTaskList(empId: number, todo: Item[], done: Item[]) {
+    this.taskService.updateTask(empId, todo, done).subscribe({
+      next: (res: any) => {
+        console.log('Task updated successfully!')
+      },
+      error: (err) => {
+        console.log('error: ', err)
+        this.errorMessage = err.message
+        this.hideAlert()
+      }
+    })
+  }
+
+  // Drag and Drop event functionality
+  drop(event: CdkDragDrop<any[]>) {
+
+    // If a task is dragged to the same column, reorder the array to match where the task is dropped.
+    if(event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex)
+
+    } else {
+      // If a task is moved to a different column, move it to the newly designated data array.
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      )
+    }
+
+    console.log('Moved item in array: ', event.container.data)
+
+    // Update database with new task list
+    this.updateTaskList(this.empId, this.todo, this.done)
+  }
+
   // Automatically close errors after 3 seconds
   hideAlert() {
     setTimeout(() => {
@@ -135,23 +178,13 @@ export class TasksComponent {
   getTask(text: string, categoryName: string) {
     let task: Item = {} as Item
 
-    const white = '#FFFFFF'
-    const green = '#4BCE97'
-    const purple = '#9F8FEF'
-    const red = '#F87462'
+    const red = '#d00000'
+    const yellow = 'yellow'
+    const blue = 'blue'
+    const green = 'green'
 
     switch (categoryName) {
       case 'testing':
-        task = {
-          text: text,
-          category: {
-            categoryName: categoryName,
-            backgroundColor: green
-          }
-        }
-        return task
-
-      case 'meetings':
         task = {
           text: text,
           category: {
@@ -161,12 +194,22 @@ export class TasksComponent {
         }
         return task
 
+      case 'meetings':
+        task = {
+          text: text,
+          category: {
+            categoryName: categoryName,
+            backgroundColor: yellow
+          }
+        }
+        return task
+
       case 'projects':
         task = {
           text: text,
           category: {
             categoryName: categoryName,
-            backgroundColor: purple
+            backgroundColor: blue
           }
         }
         return task
@@ -186,7 +229,7 @@ export class TasksComponent {
           text: text,
           category: {
             categoryName: categoryName,
-            backgroundColor: white
+            backgroundColor: 'gray'
           }
         }
         return task

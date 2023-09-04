@@ -207,6 +207,170 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "put": {
+        "tags": ["Employees"],
+        "summary": "updateTask",
+        "description": "Update the task list for a designated employee.",
+        "parameters": [
+          {
+            "name": "empId",
+            "in": "path",
+            "required": true,
+            "description": "A numerical value between 1007 - 1012",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Information about the task list.",
+          "required": true,
+          "content": {
+          "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "todo": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "required": true,
+                          "description": "The unique ID of the task.",
+                          "example": "64e6bb3d7ff5447cb9892ccc"
+                        },
+                        "text": {
+                          "type": "string",
+                          "required": true,
+                          "description": "A brief title describing the task.",
+                          "example": "To do Test Task"
+                        },
+                        "category": {
+                          "type": "object",
+                          "required": true,
+                          "description": "The designated category of the task.",
+                          "properties": {
+                            "categoryName": {
+                              "type": "string",
+                              "required": true,
+                              "description": "The name of the task's designated category.",
+                              "example": "meetings"
+                            },
+                            "backgroundColor": {
+                              "type": "string",
+                              "required": true,
+                              "description": "The label color associated with the task's designated category.",
+                              "example": "FFFFFF"
+                            }
+                          }
+                        }
+                      }
+                    }
+
+                  },
+                  "done": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "required": true,
+                          "description": "The unique ID of the task.",
+                          "example": "64e6b2477ff5447cb9892cc9"
+                        },
+                        "text": {
+                          "type": "string",
+                          "required": true,
+                          "description": "A brief title describing the task.",
+                          "example": "Done Test Task"
+                        },
+                        "category": {
+                          "type": "object",
+                          "required": true,
+                          "description": "The designated category of the task.",
+                          "properties": {
+                            "categoryName": {
+                              "type": "string",
+                              "required": true,
+                              "description": "The name of the task's designated category.",
+                              "example": "projects"
+                            },
+                            "backgroundColor": {
+                              "type": "string",
+                              "required": true,
+                              "description": "The label color associated with the task's designated category.",
+                              "example": "FFFFFF"
+                            }
+                          }
+                        }
+                      }
+                    }
+
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Success; No content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/employees/{empId}/tasks/{taskId}": {
+      "delete": {
+        "tags": ["Employees"],
+        "summary": "deleteTasks",
+        "description": "Delete a task.",
+        "parameters": [
+          {
+            "name": "empId",
+            "in": "path",
+            "required": true,
+            "description": "A numerical value between 1007 - 1012",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "description": "A unique ID for the designated task.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success; No content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     }
   },

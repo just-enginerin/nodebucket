@@ -379,7 +379,11 @@ router.delete('/:empId/tasks/:taskId', (req, res, next) => {
         return
       }
 
-      // Filter out the designated ID
+      // Initialize lists if they don't already exist within the record.
+      if (!emp.todo) emp.todo = []
+      if (!emp.done) emp.done = []
+
+      // Filter out the designated task ID.
       const todoItems = emp.todo.filter(task => task._id.toString() !== taskId.toString())
       const doneItems = emp.done.filter(task => task._id.toString() !== taskId.toString())
 
