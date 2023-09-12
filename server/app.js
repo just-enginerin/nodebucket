@@ -10,6 +10,8 @@ const express = require('express')
 const createServer = require('http-errors')
 const path = require('path')
 const employeeRoute = require('../routes/employee')
+const taskRoute = require('../routes/task')
+
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('../swagger.json')
 
@@ -26,6 +28,7 @@ app.use('/', express.static(path.join(__dirname, '../dist/nodebucket')))
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use('/api/employees', employeeRoute)
+app.use('/api/tasks', taskRoute)
 
 // error handler for 404 errors
 app.use(function(req, res, next) {
