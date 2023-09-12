@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && node ./bin/www",
+    "start": "yarn build && node ./bin/www",
     "build": "ng build",
     "server": "nodemon ./bin/www",
     "client": "ng serve --open",
