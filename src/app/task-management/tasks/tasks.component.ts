@@ -44,6 +44,8 @@ export class TasksComponent {
     this.errorMessage = ''
     this.successMessage = ''
 
+    const sessionUser = JSON.parse(this.cookieService.get('session_user'))
+
     this.empId = parseInt(this.cookieService.get('session_user'), 10)
 
     this.taskService.getTask(this.empId).subscribe({

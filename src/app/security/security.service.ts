@@ -19,4 +19,11 @@ export class SecurityService {
   findEmployeeById(empId: number) {
     return this.http.get('/api/employees/' + empId)
   }
+
+  signin(email: string, password: string) {
+    return this.http.post('/api/security/signin', {
+      email,
+      password
+    })
+  }
 }

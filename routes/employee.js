@@ -32,7 +32,6 @@ const employeeSchema = {
 const updateEmployeeSchema = {
   type: 'object',
   properties: {
-    empId: { type: 'number' },
     firstName: { type: 'string' },
     lastName: { type: 'string' },
     role: { type: 'string' }
@@ -189,6 +188,54 @@ router.delete('/:empId', (req, res, next) => {
       res.status(204).send()
     }, next)
 
+  } catch (err) {
+    console.log('err', err)
+    next(err)
+  }
+})
+
+/** updateEmployee */
+router.put('/:empId', (req, res, next) => {
+  try {
+    let { empId } = req.params
+    empId = parseInt(empId, 10)
+
+    if (isNaN(empId)) {
+      const err = new Error('input must be a number')
+      err.status = 400
+      console.log('err: ', err)
+      next(err)
+      return
+    }
+
+    const { employee } = req.body
+
+    const validator = ajv.compile(updateEmployeeSchema)
+    const valid = validator(employee)
+
+    if (!valid) {
+      const err = new Error('Bad Request')
+      err.status = 400
+      err.errors = validator.errors
+      console.log('updatedEmployeeSchema validation failed', err)
+      next(err)
+      return
+    }
+
+    mongo(async db => {
+      const result = await db.collection('employees').updateOne(
+        { empId },
+        { $set: {
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          role: employee.role
+          // for BCRS: isDisabled: true
+        }}
+      )
+
+      console.log('update employee results: ', result)
+      res.status(204).send()
+    })
   } catch (err) {
     console.log('err', err)
     next(err)

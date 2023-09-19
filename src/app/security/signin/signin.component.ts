@@ -25,11 +25,11 @@ export interface SessionUser {
 
 export class SigninComponent {
   errorMessage: string
-  sessionUser: SessionUser
   isLoading: boolean = false
 
   signinForm = this.fb.group({
-    empId: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$')])]
+    email: [null, Validators.compose([Validators.required, Validators.email])],
+    password: [null, Validators.compose([Validators.required, Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$')])]
   })
 
   constructor(
@@ -39,21 +39,52 @@ export class SigninComponent {
     private secService: SecurityService,
     private route: ActivatedRoute
   ) {
-    this.sessionUser = {} as SessionUser
     this.errorMessage = ''
   }
 
   signIn() {
     this.isLoading = true;
 
-    const empId = this.signinForm.controls['empId'].value
+    let email = this.signinForm.controls['email'].value
+    let password = this.signinForm.controls['password'].value
 
-    if (!empId || isNaN(parseInt(empId, 10))) {
-      this.errorMessage = 'The employee ID you entered is invalid; please try again.'
-      this.isLoading = false;
+    if (!email || !password) {
+      this.errorMessage = 'Please provide an email address and password.'
+      this.isLoading = false
       return
     }
 
+    this.secService.signin(email, password).subscribe({
+      next: (employee: any) => {
+
+        console.log('Employee: ', employee)
+
+        const sessionCookie = {
+          fullName: `${employee.firstName} ${employee.lastName}`,
+          role: employee.role,
+          empId: employee.empId
+        }
+
+        this.cookieService.set('session_user', JSON.stringify(sessionCookie), 1)
+
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/'
+
+        this.isLoading = false
+
+        this.router.navigate([returnUrl])
+      },
+      error: (err) => {
+        this.isLoading = false
+        console.log('err: ', err)
+
+        if (err.error.status === 401) {
+          this.errorMessage = err.message
+          return
+        }
+      }
+    })
+
+    /*
     this.secService.findEmployeeById(empId).subscribe({
       next: (employee: any) => {
         this.sessionUser = employee
@@ -77,5 +108,6 @@ export class SigninComponent {
         this.errorMessage = err.message
       }
     })
+    */
   }
 }

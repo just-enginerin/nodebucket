@@ -20,10 +20,50 @@
 
         <div class="card-body">
           <form [formGroup]="signinForm" (ngSubmit)="signIn(); signinForm.reset();">
+
+            <!-- Email -->
             <div class="mb-4">
-              <label for="empId" class="form-label">Employee ID:</label>
-              <input type="text" class="form-control" id="empId" formControlName="empId" />
+              <label for="email" class="form-label">Email:</label>
+              <input type="text" class="form-control" id="email" formControlName="email" />
             </div>
+
+            <!-- Validation for Email -->
+            <div *ngIf="signinForm.controls['email'].touched && signinForm.controls['email'].hasError('required')">
+              <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                Email is required.
+                <input type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+              </div>
+            </div>
+
+            <div *ngIf="signinForm.controls['email'].touched && signinForm.controls['email'].hasError('email')">
+              <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                Please enter a valid email address.
+                <input type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+              </div>
+            </div>
+
+
+            <!-- Password -->
+            <div class="mb-4">
+              <label for="password" class="form-label">Password:</label>
+              <input type="password" class="form-control" id="password" formControlName="password">
+            </div>
+
+            <!-- Validation for Password -->
+            <div *ngIf="signinForm.controls['password'].touched && signinForm.controls['password'].hasError('required')">
+              <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                Password is required.
+                <input type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+              </div>
+            </div>
+
+            <div *ngIf="signinForm.controls['password'].touched && signinForm.controls['password'].hasError('pattern')">
+              <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                The password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.
+                <input type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+              </div>
+            </div>
+            <!-- End password validation -->
 
             <div class="d-grid">
               <button type="submit" class="btn btn-dark">

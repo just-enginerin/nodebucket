@@ -8,8 +8,9 @@
 import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 
-export interface AppUser {
+export interface SessionUser {
   fullName: string
+  role: string
 }
 
 @Component({
@@ -20,17 +21,16 @@ export interface AppUser {
 
 export class NavComponent {
 
-  appUser: AppUser
+  sessionUser: SessionUser
   isSignedIn: boolean
 
   constructor(private cookieService: CookieService) {
-    this.appUser = {} as AppUser
+    this.sessionUser = {} as SessionUser
     this.isSignedIn = this.cookieService.get('session_user') ? true : false
 
     if (this.isSignedIn) {
-      this.appUser = {
-        fullName: this.cookieService.get('session_name')
-      }
+      this.sessionUser = JSON.parse(this.cookieService.get('session_user'))
+      console.log('Session user: ', this.sessionUser)
     }
   }
 
